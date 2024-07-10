@@ -13,6 +13,7 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 alias vi="vim"
+alias ra="ranger"
 # alias python="/usr/bin/python3"
 # alias pip="/usr/bin/pip3.9"
 
@@ -25,4 +26,13 @@ set bell-style none
 # export ALL_PROXY="socks5://172.29.248.135:7890"
 
 # fzf configuration
-export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
+if command -v fzf > /dev/null 2>&1; then
+	export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
+fi
+
+# tmux configuration
+if [[ -z ${TMUX} ]]; then
+	TMUX_SESSION_NAME="dev"
+	tmux attach-session -t ${TMUX_SESSION_NAME} || tmux new-session -s ${TMUX_SESSION_NAME}
+fi
+

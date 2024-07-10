@@ -29,6 +29,7 @@ set shiftround
 set smartindent
 set backspace=indent,eol,start
 set statusline+=%f
+set statusline+=\ col:%c
 set laststatus=2
 set makeprg=mmake
 
