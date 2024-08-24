@@ -10,6 +10,7 @@ formulaes=(
 	"ranger"
 	"go"
 	"git"
+	"sshpass"
 )
 
 casks=(
@@ -20,7 +21,6 @@ casks=(
 	"microsoft-remote-desktop"
 	"navicat-premium"
 	"omnigraffle"
-	"openlens"
 	"openvpn-connect"
 	"orbstack"
 	"paper"
