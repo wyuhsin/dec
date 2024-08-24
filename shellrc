@@ -1,9 +1,10 @@
 # dev configuration.
 export GOPATH="/home/wyuhsin/go"
 export GOBIN="/home/wyuhsin/go/bin"
+export GOPROXY=https://goproxy.cn,direct
 export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
-export PATH="$PATH:$GOPATH:$GOBIN:/home/wyuhsin/.local/bin"
+export PROTOC_BIN="/opt/protoc-27.3-linux-x86_64/bin"
+export PATH="$PATH:$GOPATH:$GOBIN:$PROTOC_BIN"
 
 # alias configuration.
 alias ll="ls -l"
@@ -14,10 +15,12 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias vi="vim"
 alias ra="ranger"
-# alias python="/usr/bin/python3"
-# alias pip="/usr/bin/pip3.9"
+alias gb="git branch"
+alias gs="git status"
+alias gc="git commit"
 
 # system configuration.
+cd ~
 export PS1="\[\e[31m\][\u@\h \w]\\$\[\e[m\] "
 set bell-style none
 # export http_proxy="http://172.29.248.135:7890"
