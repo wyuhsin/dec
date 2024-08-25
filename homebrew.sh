@@ -12,6 +12,8 @@ formulaes=(
 	"go"
 	"sshpass"
 	"protobuf"
+	"node"
+	"the_silver_searcher"
 )
 
 casks=(
@@ -49,7 +51,6 @@ function install_homebrew() {
 		check_error "Install homebrew"
 
 		if [[ "$OSTYPE" == "darwin"* ]]; then
-
 			if [[ -r ~/.zshrc ]]; then
 				echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
 				. ~/.zshrc
@@ -57,11 +58,9 @@ function install_homebrew() {
 				echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bashrc
 				. ~/.bashrc
 			fi
-
 			eval "$(/opt/homebrew/bin/brew shellenv)"
 
 		else
-
 			if [[ -r ~/.zshrc ]]; then
 				echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.zshrc
 				. ~/.zshrc
@@ -71,11 +70,9 @@ function install_homebrew() {
 			fi
 
 			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 		fi
 
 		brew tap beeftornado/rmtree
-
 		check_error "Load homebrew enviorment variables"
 	fi
 
@@ -84,7 +81,6 @@ function install_homebrew() {
 function install_yay() {
 
 	if ! command -v yay > /dev/null 2>&1; then
-
 		echo "INFO: yay is not installed, installing yay..."
 		
 		sudo bash -c 'echo [archlinuxcn] >> /etc/pacman.conf'
@@ -104,7 +100,6 @@ function install_software() {
 	install_command="brew install"
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
-
 		for item in ${formulaes[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
@@ -124,7 +119,6 @@ function install_software() {
 		done
 
 	elif [[ -f /etc/arch-release ]]; then
-
 		if ! command -v sudo > /dev/null 2>&1; then
 			sudo pacman -Syu --noconfirm sudo
 		fi
@@ -137,20 +131,15 @@ function install_software() {
 
 			${install_command} ${item}
 		done
-
 	else
-
 		echo "ERROR: Unsupported OS" && return
-
 	fi
 
 }
 
 
 function main() {
-
 	install_software
-
 }
 
 main
