@@ -3,8 +3,17 @@ export GOPATH="/home/wyuhsin/go"
 export GOBIN="/home/wyuhsin/go/bin"
 export GOPROXY=https://goproxy.cn,direct
 export GO111MODULE=on
-export PROTOC_BIN="/opt/protoc-27.3-linux-x86_64/bin"
-export PATH="$PATH:$GOPATH:$GOBIN:$PROTOC_BIN"
+export PATH="$GOPATH:$GOBIN:$PATH"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+
+elif [[ -f /etc/arch-release ]]; then
+
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+fi
 
 # alias configuration.
 alias ll="ls -l"
@@ -13,15 +22,61 @@ alias la="ls -al"
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
-alias vi="vim"
 alias ra="ranger"
-alias gb="git branch"
-alias gs="git status"
-alias gc="git commit"
+alias gbr="git branch"
+alias gst="git status"
+alias gsw="git switch"
+alias gco="git commit -m"
+alias gch="git checkout"
+alias gme="git merge"
+alias gre="git rebase"
+alias gad="git add"
+alias g="git"
+
+# git configuration
+
+# function to show git branch and status
+_git_prompt() {
+
+	git_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+	if [ -n "$git_branch" ]; then
+
+		git_status=$(git status --porcelain 2>/dev/null)
+
+		if [ -n "$git_status" ]; then
+
+			echo ":$git_branch*"
+
+		else
+
+			echo ":$git_branch"
+
+		fi
+	fi
+}
+
+# function to complete git branch
+_git_branch_completion() {
+    local branches cur
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    branches=$(git branch --all | grep -v '\->' | sed 's/remotes\/origin\///' | sed 's/^[ *]*//')
+    COMPREPLY=($(compgen -W "${branches}" -- "${cur}"))
+}
+
+complete -F _git_branch_completion git switch
+complete -F _git_branch_completion gsw
+complete -F _git_branch_completion git checkout
+complete -F _git_branch_completion gch
+complete -F _git_branch_completion git merge
+complete -F _git_branch_completion gme
+complete -F _git_branch_completion git rebase
+complete -F _git_branch_completion gre
 
 # system configuration.
 cd ~
-export PS1="\[\e[31m\][\u@\h \w]\\$\[\e[m\] "
+# export PS1="\[\e[31m\][\u@\h \w]\\$\[\e[m\] "
+export PS1="\[\e[31m\][\u@\h \w\[\e[33m\]\$(_git_prompt)\[\e[31m\]]\$\[\e[m\] "
 set bell-style none
 # export http_proxy="http://172.29.248.135:7890"
 # export https_proxy="http://172.29.248.135:7890"
