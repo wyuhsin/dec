@@ -41,14 +41,6 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 alias ra="ranger"
-alias gbr="git branch"
-alias gst="git status"
-alias gsw="git switch"
-alias gco="git commit -m"
-alias gch="git checkout"
-alias gme="git merge"
-alias gre="git rebase"
-alias gad="git add"
 alias g="git"
 
 # git configuration
@@ -74,14 +66,12 @@ if command -v git > /dev/null 2>&1; then
 	    COMPREPLY=($(compgen -W "${branches}" -- "${cur}"))
 	}
 	
-	complete -F _git_branch_completion git switch
-	complete -F _git_branch_completion gsw
-	complete -F _git_branch_completion git checkout
-	complete -F _git_branch_completion gch
-	complete -F _git_branch_completion git merge
-	complete -F _git_branch_completion gme
-	complete -F _git_branch_completion git rebase
-	complete -F _git_branch_completion gre
+	complete -F _git_branch_completion g switch
+	complete -F _git_branch_completion g checkout
+	complete -F _git_branch_completion g merge
+	complete -F _git_branch_completion g rebase
+	complete -F _git_branch_completion g pull
+	complete -F _git_branch_completion g push
 fi
 
 # fzf configuration
