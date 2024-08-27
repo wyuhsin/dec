@@ -2,18 +2,22 @@
 
 formulaes=(
 	"git"
-	"sudo"
-	"vim"
-	"make"
 	"gdb"
 	"gcc"
 	"tmux"
+	"vim"
+	"make"
 	"ranger"
+	"sudo"
+	"net-tools"
 	"go"
 	"sshpass"
 	"protobuf"
 	"node"
 	"the_silver_searcher"
+	"python"
+	"telnet"
+	"tcpdump"
 )
 
 casks=(
