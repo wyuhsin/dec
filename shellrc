@@ -2,8 +2,7 @@
 if [[ -z ${TMUX} ]]; then
 	cd ~
 	export GOPROXY="https://goproxy.cn,direct"
-	export GO111MODULE=on
-	export GOPATH="/home/wyuhsin/go"
+	export GO111MODULE=on export GOPATH="/home/wyuhsin/go"
 	export GOBIN="/home/wyuhsin/go/bin"
 	export PATH="$GOPATH:$GOBIN:$PATH"
 	# export all_proxy="socks5://172.29.248.135:7890"
@@ -72,6 +71,12 @@ if command -v git > /dev/null 2>&1; then
 	complete -F _git_branch_completion g rebase
 	complete -F _git_branch_completion g pull
 	complete -F _git_branch_completion g push
+	complete -F _git_branch_completion git switch
+	complete -F _git_branch_completion git checkout
+	complete -F _git_branch_completion git merge
+	complete -F _git_branch_completion git rebase
+	complete -F _git_branch_completion git pull
+	complete -F _git_branch_completion git push
 fi
 
 # fzf configuration
@@ -85,3 +90,29 @@ if [[ -z ${TMUX} ]]; then
 	tmux attach-session -t ${TMUX_SESSION_NAME} || tmux new-session -s ${TMUX_SESSION_NAME}
 fi
 
+# kubectl configuration
+if command -v kubectl > /dev/null 2>&1; then
+
+	_kubectl_pod_complete() {
+		local cur pods
+		cur="${COMP_WORDS[COMP_CWORD]}"
+		pods=$(kubectl get pods --no-headers -o custom-columns=":metadata.name" --all-namespaces)
+		COMPREPLY=($(compgen -W "${pods}" -- "${cur}"))
+	}
+
+	_kubectl_deployment_complete() {
+		local cur deployments
+		cur="${COMP_WORDS[COMP_CWORD]}"
+		deployments=$(kubectl get deployments --no-headers -o custom-columns=":metadata.name" --all-namespaces)
+		COMPREPLY=($(compgen -W "${deployments}" -- "${cur}"))
+	}
+	
+	complete -F _kubectl_pod_complete kubectl logs
+	complete -F _kubectl_pod_complete kubectl delete pods
+	complete -F _kubectl_pod_complete kubectl describe pods
+
+	complete -F _kubectl_deployment_complete kubectl delete deployments
+	complete -F _kubectl_deployment_complete kubectl describe deployments
+	complete -F _kubectl_deployment_complete kubectl edit deployments
+	complete -F _kubectl_deployment_complete kubectl scale deployments
+fi
