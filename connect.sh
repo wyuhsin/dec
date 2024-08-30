@@ -59,12 +59,13 @@ echo "$config"
 host=$(echo "$config" | yq eval '.host' -)
 user=$(echo "$config" | yq eval '.user' -)
 password=$(echo "$config" | yq eval '.password' -)
+port=$(echo "$config" | yq eval '.port' -)
 
 # execute connection based on selected type
 case $type in
     ssh)
         echo "Connecting to SSH server $host..."
-        sshpass -p "$password" ssh "$user@$host"
+        sshpass -p "$password" ssh "$user@$host" -p $port -o StrictHostKeyChecking=no
         ;;
     mysql)
         echo "Connecting to MySQL server $host..."

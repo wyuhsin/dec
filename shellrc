@@ -107,7 +107,7 @@ if command -v kubectl > /dev/null 2>&1; then
 		COMPREPLY=($(compgen -W "${deployments}" -- "${cur}"))
 	}
 	
-	complete -F _kubectl_pod_complete kubectl logs
+	complete -F _kubectl_pod_complete kubectl logs -f
 	complete -F _kubectl_pod_complete kubectl delete pods
 	complete -F _kubectl_pod_complete kubectl describe pods
 
