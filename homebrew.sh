@@ -23,6 +23,8 @@ formulaes=(
 casks=(
 	"apifox"
 	"chatgpt"
+	"wechat"
+	"wechatwork"
 	"dingtalk"
 	"google-chrome"
 	"microsoft-remote-desktop"
@@ -34,8 +36,6 @@ casks=(
 	"sunloginclient"
 	"tencent-lemon"
 	"termius"
-	"wechat"
-	"wechatwork"
 	"wpsoffice"
 	"xmind"
 )
@@ -104,6 +104,15 @@ function install_software() {
 	install_command="brew install"
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
+		for item in ${casks[@]}; do
+			if command -v ${item} > /dev/null 2>&1; then
+				echo "INFO: ${item} has been installed"
+				continue
+			fi
+
+			${install_command} --cask ${item}
+		done
+
 		for item in ${formulaes[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
@@ -113,14 +122,6 @@ function install_software() {
 			${install_command} ${item}
 		done
 
-		for item in ${casks[@]}; do
-			if command -v ${item} > /dev/null 2>&1; then
-				echo "INFO: ${item} has been installed"
-				continue
-			fi
-
-			${install_command} --cask ${item}
-		done
 
 	elif [[ -f /etc/arch-release ]]; then
 		if ! command -v sudo > /dev/null 2>&1; then
