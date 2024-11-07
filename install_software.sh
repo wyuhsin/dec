@@ -23,7 +23,7 @@ formulaes=(
 	"cargo"
 )
 
-pacmans-(
+pacmans=(
 	"git"
 	"gdb"
 	"gcc"
