@@ -18,6 +18,33 @@ formulaes=(
 	"python"
 	"telnet"
 	"tcpdump"
+	"rust"
+	"rust-analyzer"
+	"cargo"
+)
+
+pacmans-(
+	"git"
+	"gdb"
+	"gcc"
+	"tmux"
+	"vim"
+	"make"
+	"ranger"
+	"sudo"
+	"net-tools"
+	"go"
+	"sshpass"
+	"protobuf"
+	"nodejs"
+	"npm"
+	"the_silver_searcher"
+	"python"
+	"telnet"
+	"tcpdump"
+	"rust"
+	"rust-analyzer"
+	"cargo"
 )
 
 casks=(
@@ -100,10 +127,12 @@ function install_yay() {
 
 function install_software() {
 
-	install_homebrew
-	install_command="brew install"
 
 	if [[ "$OSTYPE" == "darwin"* ]]; then
+
+		install_homebrew
+		install_command="brew install"
+
 		for item in ${casks[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
@@ -124,11 +153,15 @@ function install_software() {
 
 
 	elif [[ -f /etc/arch-release ]]; then
+
+		install_yay
+		install_command="sudo pacman -Syu --noconfirm sudo"
+		
 		if ! command -v sudo > /dev/null 2>&1; then
-			sudo pacman -Syu --noconfirm sudo
+			pacman -Syu --noconfirm sudo
 		fi
 
-		for item in ${formulaes[@]}; do
+		for item in ${pacmans[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
 				continue

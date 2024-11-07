@@ -41,6 +41,8 @@ call plug#begin('~/.vim/plugged')
 
 " CocInstall coc-go
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/coc-rust-analyzer', {'do': 'npm install'}
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
