@@ -1,6 +1,7 @@
 #!/bin/bash
 
-formulaes=(
+formulas=(
+	"sudo"
 	"git"
 	"gdb"
 	"gcc"
@@ -8,34 +9,11 @@ formulaes=(
 	"vim"
 	"make"
 	"ranger"
-	"sudo"
 	"net-tools"
 	"go"
 	"sshpass"
 	"protobuf"
 	"node"
-	"the_silver_searcher"
-	"python"
-	"telnet"
-	"tcpdump"
-	"rust"
-	"rust-analyzer"
-	"cargo"
-)
-
-pacmans=(
-	"git"
-	"gdb"
-	"gcc"
-	"tmux"
-	"vim"
-	"make"
-	"ranger"
-	"sudo"
-	"net-tools"
-	"go"
-	"sshpass"
-	"protobuf"
 	"nodejs"
 	"npm"
 	"the_silver_searcher"
@@ -99,7 +77,6 @@ function install_homebrew() {
 				echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
 				. ~/.bashrc
 			fi
-
 			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 		fi
 
@@ -133,23 +110,31 @@ function install_software() {
 		install_homebrew
 		install_command="brew install"
 
+		s=""
+
 		for item in ${casks[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
 				continue
 			fi
 
-			${install_command} --cask ${item}
+			s="${s} ${item}"
 		done
 
-		for item in ${formulaes[@]}; do
+		${install_command} --cask ${s}
+
+		s=""
+
+		for item in ${formulas[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
 				continue
 			fi
 
-			${install_command} ${item}
+			s="${s} ${item}"
 		done
+
+		${install_command} ${s}
 
 
 	elif [[ -f /etc/arch-release ]]; then
@@ -161,14 +146,18 @@ function install_software() {
 			pacman -Syu --noconfirm sudo
 		fi
 
-		for item in ${pacmans[@]}; do
+		s=""
+
+		for item in ${formulas[@]}; do
 			if command -v ${item} > /dev/null 2>&1; then
 				echo "INFO: ${item} has been installed"
 				continue
 			fi
 
-			${install_command} ${item}
+			s="${s} ${item}"
 		done
+
+		${install_command} ${s}
 	else
 		echo "ERROR: Unsupported OS" && return
 	fi
