@@ -108,7 +108,7 @@ function install_software() {
 	if [[ "$OSTYPE" == "darwin"* ]]; then
 
 		install_homebrew
-		install_command="brew install"
+		install_command="brew install "
 
 		s=""
 
@@ -140,7 +140,7 @@ function install_software() {
 	elif [[ -f /etc/arch-release ]]; then
 
 		install_yay
-		install_command="sudo pacman -Syu --noconfirm sudo"
+		install_command="sudo pacman -Syu --noconfirm "
 		
 		if ! command -v sudo > /dev/null 2>&1; then
 			pacman -Syu --noconfirm sudo
