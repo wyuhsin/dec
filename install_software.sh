@@ -50,13 +50,53 @@ function check_error() {
 	[[ $? -ne 0 ]] && { echo "ERROR: $1 failed"; exit 1; }
 }
 
+function init_tmux() {
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	ln -s $(pwd)/tmux.conf ${HOME}/.tmux.conf
+
+	check_error "Install tmux tmp"
+}
+
+function init_shell() {
+	current_shell=$(basename "$SHELL")
+	target=""
+
+	case "$current_shell" in
+		bash)
+			target="${HOME}/.bashrc"
+			;;
+		zsh)
+			target="${HOME}/.zshrc"
+			;;
+		fish)
+			target="${HOME}/.config/fish/config.fish"
+			;;
+		*)
+			echo "Unsupported shell: $current_shell"
+			;;
+	esac
+
+	if [ -e ${target} ] || [ -L ${target} ]; then
+		rm -f ${target}
+	fi
+
+	ln -s $(pwd)/shellrc ${target}
+}
+
+function init_vim() {
+	target="${HOME}/.vimrc"
+
+	if [ -e ${target} ] || [ -L ${target} ]; then
+		rm -f ${target}
+	fi
+
+	ln -s $(pwd)/vimrc ${target}
+}
+
 function install_homebrew() {
-
 	if ! command -v brew > /dev/null 2>&1; then
-
 		echo "INFO: homebrew is not installed, installing homebrew..."
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
 		check_error "Install homebrew"
 
 		if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -83,11 +123,9 @@ function install_homebrew() {
 		brew tap beeftornado/rmtree
 		check_error "Load homebrew enviorment variables"
 	fi
-
 }
 
 function install_yay() {
-
 	if ! command -v yay > /dev/null 2>&1; then
 		echo "INFO: yay is not installed, installing yay..."
 		
@@ -97,16 +135,11 @@ function install_yay() {
 		sudo pacman -S archlinuxcn-keyring
 		sudo pacman -S yay
 	fi
-
 	check_error "Install yay"
-
 }
 
 function install_software() {
-
-
 	if [[ "$OSTYPE" == "darwin"* ]]; then
-
 		install_homebrew
 		install_command="brew install "
 
@@ -135,10 +168,7 @@ function install_software() {
 		done
 
 		${install_command} ${s}
-
-
 	elif [[ -f /etc/arch-release ]]; then
-
 		install_yay
 		install_command="sudo pacman -Syu --noconfirm "
 		
@@ -158,17 +188,18 @@ function install_software() {
 		done
 
 		${install_command} ${s}
+
+		init_tmux
 	else
 		echo "ERROR: Unsupported OS" && return
 	fi
-
 }
-
 
 function main() {
 	install_software
+	init_vim
+	init_shell
 }
 
 main
-
 
