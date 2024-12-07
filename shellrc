@@ -115,13 +115,3 @@ if command -v kubectl > /dev/null 2>&1; then
 	complete -F _kubectl_deployment_complete kubectl edit deployments
 	complete -F _kubectl_deployment_complete kubectl scale deployments
 fi
-
-# tmux configuration
-if [[ -z ${TMUX} ]]; then
-	TMUX_SESSION_NAME="dev"
-	tmux new-session -d -s ${TMUX_SESSION_NAME}
-    	tmux run-shell "~/.tmux/plugins/tmux-resurrect/scripts/restore.sh"
-    	tmux attach-session -t ${TMUX_SESSION_NAME}
-	# tmux attach-session -t ${TMUX_SESSION_NAME} || tmux new-session -s ${TMUX_SESSION_NAME}
-fi
-
