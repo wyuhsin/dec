@@ -118,6 +118,7 @@ fi
 
 # tmux configuration
 if [[ -z ${TMUX} ]]; then
+	echo "aaaa"
 	TMUX_SESSION_NAME="dev"
-	tmux attach-session -s ${TMUX_SESSION_NAME} || tmux new-session -s ${TMUX_SESSION_NAME}
+	tmux attach-session -t ${TMUX_SESSION_NAME} || tmux new-session -t ${TMUX_SESSION_NAME}
 fi
