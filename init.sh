@@ -50,13 +50,6 @@ function check_error() {
 	[[ $? -ne 0 ]] && { echo "ERROR: $1 failed"; exit 1; }
 }
 
-function init_tmux() {
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	ln -s $(pwd)/tmux.conf ${HOME}/.tmux.conf
-
-	check_error "Install tmux tmp"
-}
-
 function init_shell() {
 	current_shell=$(basename "$SHELL")
 	target=""
@@ -188,17 +181,21 @@ function install_software() {
 		done
 
 		${install_command} ${s}
-
-		init_tmux
 	else
 		echo "ERROR: Unsupported OS" && return
 	fi
+}
+
+function init_git() {
+	git config --global push.default current
+	git config --global fetch.prune true
 }
 
 function main() {
 	install_software
 	init_vim
 	init_shell
+	init_git
 }
 
 main
