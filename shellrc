@@ -31,9 +31,9 @@ if [[ -z ${TMUX} ]]; then
 fi
 
 if command -v git > /dev/null 2>&1; then
-	export PS1="\[\e[31m\][\u@\h \w\[\e[33m\]\$(_git_ps1)\[\e[31m\]]\$\[\e[m\] "
+	export PS1="\[\e[33m\][\u@\h \w\[\e[33m\]\$(_git_ps1)\[\e[33m\]]\$\[\e[m\] "
 else
-	export PS1="\[\e[31m\][\u@\h \w]\\$\[\e[m\] "
+	export PS1="\[\e[33m\][\u@\h \w]\\$\[\e[m\] "
 fi
 
 # alias configuration.
@@ -45,6 +45,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias ra="ranger"
 alias g="git"
+alias vi="vim"
 
 # git configuration
 if command -v git > /dev/null 2>&1; then
@@ -88,6 +89,11 @@ if command -v fzf > /dev/null 2>&1; then
 	export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
 fi
 
+# edior configuration
+if command -v vim > /dev/null 2>&1; then
+	export EDITOR=/usr/bin/vim
+fi
+
 
 # kubectl configuration
 if command -v kubectl > /dev/null 2>&1; then
@@ -118,7 +124,7 @@ fi
 
 # tmux configuration
 if [[ -z ${TMUX} ]]; then
-	echo "aaaa"
 	TMUX_SESSION_NAME="dev"
 	tmux attach-session -t ${TMUX_SESSION_NAME} || tmux new-session -t ${TMUX_SESSION_NAME}
 fi
+
