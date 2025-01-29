@@ -49,7 +49,7 @@ Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-fugitive'
 
 " copilot
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
 call plug#end()
 
