@@ -23,6 +23,8 @@ formulas=(
 	"rust"
 	"rust-analyzer"
 	"cargo"
+	"which"
+	"fzf"
 )
 
 casks=(

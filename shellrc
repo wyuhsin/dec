@@ -85,6 +85,8 @@ if command -v git > /dev/null 2>&1; then
 fi
 
 # fzf configuration
+eval "$(fzf --bash)"
+
 if command -v fzf > /dev/null 2>&1; then
 	export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
 fi
