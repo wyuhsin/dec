@@ -190,19 +190,7 @@ tree.setup({
 	},
 	view = {
 		width = 40
-		-- mappings = {
-		-- 	custom_only = true,
-		-- 	list = {
-		-- 		{ key = "h", action = "dir_up" },
-		-- 		{ key = "l", action = "edit" },
-		-- 	},
-		-- },
 	},
-	-- highlight = {
-	-- 	enable = true,
-	-- 	folder = "Directory",
-	-- 	file = "Normal",
-	-- },
 })
 
 

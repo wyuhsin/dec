@@ -16,7 +16,6 @@ formulas=(
 	"node"
 	"nodejs"
 	"npm"
-	"the_silver_searcher"
 	"python"
 	"telnet"
 	"tcpdump"
