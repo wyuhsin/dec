@@ -25,6 +25,7 @@ formulas=(
 	"cargo"
 	"which"
 	"fzf"
+	"ripgrep"
 )
 
 casks=(

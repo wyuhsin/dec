@@ -45,7 +45,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias ra="ranger"
 alias g="git"
-alias vi="vim"
+alias vi="nvim"
+alias vim="nvim"
 
 # git configuration
 if command -v git > /dev/null 2>&1; then
@@ -93,7 +94,7 @@ fi
 
 # edior configuration
 if command -v vim > /dev/null 2>&1; then
-	export EDITOR=/usr/bin/vim
+	export EDITOR=/usr/sbin/nvim
 fi
 
 
